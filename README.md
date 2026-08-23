@@ -39,6 +39,14 @@ REACT_APP_RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 4. Once packages are installed, type and run `yarn start`
 5. Now app is fully configured and you can start using this app :+1:
 
+### Need Help?
+
+If you run into issues during installation or setup:
+
+- **GitHub Discussions** — [Open a Q&A discussion](https://github.com/sanidhyy/crypto-app/discussions/new?category=q-a) for setup and troubleshooting help.
+- **Email** — [sanidhyyy@gmail.com](mailto:sanidhyyy@gmail.com)
+- **Discord** — `@sanidhyy`
+
 ## 📃 Built with
 
 [<img src="https://media3.giphy.com/media/ln7z2eWriiQAllfVcn/200w.webp" width="100">](https://www.javascript.com/)
