@@ -12,7 +12,6 @@ import demoImage from "../images/demo.jpg";
 dayjs.extend(relativeTime);
 
 const { Text, Title } = Typography;
-const { Option } = Select;
 
 type NewsProps = {
   simplified?: boolean;
@@ -38,21 +37,16 @@ const News = ({ simplified = false }: NewsProps) => {
             showSearch
             className="select-news"
             placeholder="Select a Crypto"
-            optionFilterProp="children"
+            optionFilterProp="label"
             onChange={(value) => setNewsCategory(value)}
-            filterOption={(input, option) =>
-              String(option?.children ?? "")
-                .toLowerCase()
-                .indexOf(input.toLowerCase()) >= 0
-            }
-          >
-            <Option value="Cryptocurrency">Cryptocurrency</Option>
-            {data?.data?.coins?.map((coin) => (
-              <Option value={coin.name} key={coin.uuid}>
-                {coin.name}
-              </Option>
-            ))}
-          </Select>
+            options={[
+              { label: "Cryptocurrency", value: "Cryptocurrency" },
+              ...(data?.data?.coins?.map((coin) => ({
+                label: coin.name,
+                value: coin.name,
+              })) ?? []),
+            ]}
+          />
         </Col>
       )}
 

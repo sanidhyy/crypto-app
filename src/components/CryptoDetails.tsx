@@ -23,7 +23,6 @@ import LineChart from "./LineChart";
 import Loader from "./Loader";
 
 const { Title, Text } = Typography;
-const { Option } = Select;
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -121,11 +120,8 @@ const CryptoDetails = () => {
         className="select-timeperiod"
         placeholder="Select Time Period"
         onChange={(value) => setTimePeriod(value)}
-      >
-        {time.map((date) => (
-          <Option key={date}>{date}</Option>
-        ))}
-      </Select>
+        options={time.map((date) => ({ label: date, value: date }))}
+      />
 
       <LineChart
         coinHistory={coinHistory}
