@@ -1,4 +1,4 @@
-import millify from "millify";
+import { millify } from "millify";
 
 export const formatNumber = (value: number | string | null | undefined) => {
   const numericValue = Number(value);

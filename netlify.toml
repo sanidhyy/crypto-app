@@ -3,6 +3,18 @@
   publish = "dist"
 
 [[redirects]]
+  from = "/api/crypto/*"
+  to = "/.netlify/functions/crypto/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/news/*"
+  to = "/.netlify/functions/news/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
