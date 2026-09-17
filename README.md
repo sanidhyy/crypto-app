@@ -28,16 +28,14 @@ RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 6. After enabling you can get your API Keys and paste them in `.env` file as `RAPID_API_KEY`.
 
-7. On Netlify, set the same `RAPID_API_KEY` environment variable in the dashboard with Functions scope. Do not prefix it with `VITE_` — that would expose it to the browser.
-
 **NOTE:** Make sure you don't share these keys publicaly.
 
 ## 📌 How to use this App?
 
 1. Clone this **repository** to your local computer.
 2. Open **terminal** in root directory.
-3. Type and Run `pnpm install`.
-4. Once packages are installed, type and run `pnpm dev`.
+3. Type and Run `npm install` or `pnpm install`.
+4. Once packages are installed, type and run `npm run dev` or `pnpm dev`.
 5. Now app is fully configured and you can start using this app :+1:
 
 ### Need Help?
