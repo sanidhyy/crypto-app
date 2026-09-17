@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Menu, Typography, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import {
@@ -12,28 +12,21 @@ import {
 import icon from "../images/cryptocurrency.png";
 
 const Navbar = () => {
-  const [activeMenu, setActiveMenu] = useState(true);
-  const [screenSize, setScreenSize] = useState(null);
+  const [activeMenu, setActiveMenu] = useState(
+    () => window.innerWidth >= 768
+  );
 
-  // Get screen size
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => {
+      setActiveMenu(window.innerWidth >= 768);
+    };
 
     window.addEventListener("resize", handleResize);
-
-    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Change menu style based on screen size
-  useEffect(() => {
-    if (screenSize < 768) setActiveMenu(false);
-    else setActiveMenu(true);
-  }, [screenSize]);
-
-  // Menu Items
-  const MenuItems = [
+  const menuItems = [
     {
       key: "home",
       icon: <HomeOutlined />,
@@ -58,13 +51,11 @@ const Navbar = () => {
 
   return (
     <div className="nav-container">
-      {/* Logo */}
       <div className="logo-container">
         <Avatar src={icon} size="large" />
         <Typography.Title level={2} className="logo">
           <Link to="/">Cryptoverse</Link>
         </Typography.Title>
-        {/* Menu Button */}
         <Button
           className="menu-control-container"
           onClick={() => setActiveMenu(!activeMenu)}
@@ -72,8 +63,7 @@ const Navbar = () => {
           <MenuOutlined />
         </Button>
       </div>
-      {/* Menu Items */}
-      {activeMenu && <Menu theme="dark" items={MenuItems}></Menu>}
+      {activeMenu && <Menu theme="dark" items={menuItems} />}
     </div>
   );
 };

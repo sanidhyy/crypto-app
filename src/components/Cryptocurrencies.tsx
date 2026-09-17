@@ -1,37 +1,36 @@
-import React, { useState, useEffect } from "react";
-import millify from "millify";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import { formatNumber } from "../utils/formatNumber";
 import Loader from "./Loader";
 
-// Cryptocurrencies
-const Cryptocurrencies = ({ simplified }) => {
+type CryptocurrenciesProps = {
+  simplified?: boolean;
+};
+
+const Cryptocurrencies = ({ simplified = false }: CryptocurrenciesProps) => {
   const count = simplified ? 10 : 100;
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
-  const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filter search data
-  useEffect(() => {
+  const cryptos = useMemo(() => {
     const re = RegExp(
       `.*${searchTerm.toLowerCase().replace(/\s+/g, "").split("").join(".*")}.*`
     );
 
-    const filteredData = cryptosList?.data?.coins.filter((coin) =>
-      coin.name.toLowerCase().match(re)
+    return (
+      cryptosList?.data?.coins?.filter((coin) =>
+        Boolean(coin.name.toLowerCase().match(re))
+      ) ?? []
     );
-
-    setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
 
-  // Loading
   if (isFetching) return <Loader />;
 
   return (
     <>
-      {/* Search Crypocurrency */}
       {!simplified && (
         <div className="search-crypto">
           <Input
@@ -44,11 +43,10 @@ const Cryptocurrencies = ({ simplified }) => {
       <Row
         gutter={[32, 32]}
         className="crypto-card-container"
-        style={!cryptos?.length && { justifyContent: "center" }}
+        style={!cryptos.length ? { justifyContent: "center" } : undefined}
       >
-        {/* Show Crypocurrency */}
-        {cryptos?.length ? (
-          cryptos?.map((currency) => (
+        {cryptos.length ? (
+          cryptos.map((currency) => (
             <Col
               xs={24}
               sm={12}
@@ -68,15 +66,14 @@ const Cryptocurrencies = ({ simplified }) => {
                   }
                   hoverable
                 >
-                  <p>Price: {millify(currency.price)}</p>
-                  <p>Market Cap: {millify(currency.marketCap)}</p>
-                  <p>Daily Change: {millify(currency.change)}%</p>
+                  <p>Price: {formatNumber(currency.price)}</p>
+                  <p>Market Cap: {formatNumber(currency.marketCap)}</p>
+                  <p>Daily Change: {formatNumber(currency.change)}%</p>
                 </Card>
               </Link>
             </Col>
           ))
         ) : (
-          // No Crypocurrencies found
           <p style={{ textAlign: "center" }}>No Crytocurrencies Found.</p>
         )}
       </Row>

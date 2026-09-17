@@ -1,33 +1,44 @@
-import React from "react";
-// Chart is required by chart.js, don't remove even if not used.
-// eslint-disable-next-line
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { Col, Row, Typography } from "antd";
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title as ChartTitle,
+  Tooltip,
+  type ChartOptions,
+} from "chart.js";
 
-// Typography
+import type { CryptoHistoryResponse } from "../types/crypto";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ChartTitle,
+  Tooltip,
+  Legend
+);
+
 const { Title } = Typography;
 
-// Line Chart
-const LineChart = ({ coinHistory, currentPrice, coinName }) => {
-  const coinPrice = [];
-  const coinTimestamp = [];
+type LineChartProps = {
+  coinHistory?: CryptoHistoryResponse;
+  currentPrice: string;
+  coinName: string;
+};
 
-  // Coin Price
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    coinPrice.push(coinHistory?.data?.history[i].price);
-  }
+const LineChart = ({ coinHistory, currentPrice, coinName }: LineChartProps) => {
+  const history = coinHistory?.data?.history ?? [];
+  const coinPrice = history.map((point) => Number(point.price));
+  const coinTimestamp = history.map((point) =>
+    new Date(point.timestamp * 1000).toLocaleDateString()
+  );
 
-  // Coin Timestamp
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    coinTimestamp.push(
-      new Date(
-        coinHistory?.data?.history[i].timestamp * 1000
-      ).toLocaleDateString()
-    );
-  }
-
-  // Data
   const data = {
     labels: coinTimestamp,
     datasets: [
@@ -41,22 +52,16 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
     ],
   };
 
-  // Options
-  const options = {
+  const options: ChartOptions<"line"> = {
     scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
+      y: {
+        beginAtZero: true,
+      },
     },
   };
 
   return (
     <>
-      {/* Coin Info */}
       <Row className="chart-header">
         <Title level={2} className="chart-title">
           {coinName} Price Chart{" "}
@@ -70,7 +75,6 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
           </Title>
         </Col>
       </Row>
-      {/* Chart */}
       <Line data={data} options={options} />
     </>
   );
