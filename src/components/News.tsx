@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
 import Loader from "./Loader";
 import demoImage from "../images/demo.jpg";
+
+dayjs.extend(relativeTime);
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -85,7 +88,7 @@ const News = ({ simplified = false }: NewsProps) => {
                     {news.provider?.[0]?.name}
                   </Text>
                 </div>
-                <Text>{moment(news.datePublished).fromNow()}</Text>
+                <Text>{dayjs(news.datePublished).fromNow()}</Text>
               </div>
             </a>
           </Card>

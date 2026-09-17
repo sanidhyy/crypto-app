@@ -5,9 +5,6 @@ import { Provider } from "react-redux";
 import App from "./App";
 import store from "./app/store";
 
-// Antdesign CSS
-import "antd/dist/antd.css";
-
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
