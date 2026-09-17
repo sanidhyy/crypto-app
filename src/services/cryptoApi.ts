@@ -6,24 +6,17 @@ import type {
   CryptosResponse,
 } from "../types/crypto";
 
-const cryptoApiHeaders = {
-  "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
-  "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-};
-
-const baseUrl = "https://coinranking1.p.rapidapi.com";
-
-const createRequest = (url: string) => ({ url, headers: cryptoApiHeaders });
+const createRequest = (url: string) => ({ url });
 
 export const cryptoApi = createApi({
   reducerPath: "cryptoApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/crypto/" }),
   endpoints: (builder) => ({
     getCryptos: builder.query<CryptosResponse, number>({
-      query: (count) => createRequest(`/coins?limit=${count}`),
+      query: (count) => createRequest(`coins?limit=${count}`),
     }),
     getCryptoDetails: builder.query<CryptoDetailsResponse, string>({
-      query: (coinId) => createRequest(`/coin/${coinId}`),
+      query: (coinId) => createRequest(`coin/${coinId}`),
     }),
     getCryptoHistory: builder.query<
       CryptoHistoryResponse,

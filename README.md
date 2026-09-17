@@ -17,7 +17,7 @@
 3. Contents of **.env**
 
 ```
-REACT_APP_RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 4. Now, to setup Crypto API, go to [Rapid API Website](https://rapidapi.com/) and create an account.
@@ -26,7 +26,9 @@ REACT_APP_RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ![Copy API Key](https://user-images.githubusercontent.com/71302066/174961967-0b84e20a-c914-40bc-b3e1-c23f31ff8389.png)
 
-6. After enabling you can get your API Keys and paste them in `.env` file in `REACT_APP_RAPID_API_KEY`.
+6. After enabling you can get your API Keys and paste them in `.env` file as `RAPID_API_KEY`.
+
+7. On Netlify, set the same `RAPID_API_KEY` environment variable in the dashboard with Functions scope. Do not prefix it with `VITE_` — that would expose it to the browser.
 
 **NOTE:** Make sure you don't share these keys publicaly.
 
@@ -34,8 +36,8 @@ REACT_APP_RAPID_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 1. Clone this **repository** to your local computer.
 2. Open **terminal** in root directory.
-3. Type and Run `npm install` or `pnpm install`.
-4. Once packages are installed, type and run `npm run start` or `pnpm start`.
+3. Type and Run `pnpm install`.
+4. Once packages are installed, type and run `pnpm dev`.
 5. Now app is fully configured and you can start using this app :+1:
 
 ### Need Help?
